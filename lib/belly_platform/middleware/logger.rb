@@ -41,12 +41,13 @@ module BellyPlatform
       end
 
       def format_response(transaction_id, status, headers, body)
+        response_body = body.respond_to?(:body) ? body.body.map{|r| JSON.parse(r)} : nil
         {response:
           {
             transaction_id:   transaction_id,
             status:   status,
             headers:  headers,
-            response: body.body.map{|r| JSON.parse(r)}
+            response: response_body
           }
         }
       end
