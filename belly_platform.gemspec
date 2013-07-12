@@ -21,6 +21,8 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'dotenv'
   gem.add_dependency 'octokit'
   gem.add_dependency 'grape'
+  gem.add_dependency 'grape-swagger'
+
   gem.add_development_dependency "rspec"
   gem.add_development_dependency "pry"
 end
