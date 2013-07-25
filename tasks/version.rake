@@ -29,7 +29,7 @@ namespace :version do
         git.add('lib/belly_platform/version.rb')
         git.commit("Version bump: #{release_tag}")
         git.add_tag(release_tag)
-        git.push(git.remote('origin')) if git.remote('origin')
+        git.push(git.remote('origin'), git.branch, release_tag) if git.remote('origin')
         puts "Version bumped: #{release_tag}"
       end
     end
