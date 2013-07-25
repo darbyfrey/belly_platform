@@ -99,6 +99,6 @@ Your application's Github repo. i.e. `bellycard/belly_platform`
 5. Create new Pull Request
 
 
-## Todo
+## Todo/Feature Requests
 
 * Add specs for logger and logging middleware
