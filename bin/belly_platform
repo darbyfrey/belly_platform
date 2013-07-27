@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+require 'belly_platform'
+
+actions = ['new']
+
+if actions.include?(ARGV[0])
+  if ARGV[0] == 'new'
+    if ARGV[1].nil?
+      STDOUT.write "Missing App Name, Exiting\n"
+    else
+      BellyPlatform::Generators::Scaffold.new(ARGV[1])
+    end
+  end
+else
+  STDOUT.write "Unknown Action, Exiting.\n"
+end
