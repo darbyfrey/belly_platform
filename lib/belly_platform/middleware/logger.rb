@@ -41,7 +41,13 @@ module BellyPlatform
       end
 
       def format_response(transaction_id, status, headers, body)
-        response_body = body.respond_to?(:body) ? body.body.map{|r| JSON.parse(r)} : nil
+        response_body = nil
+        begin
+          response_body = body.respond_to?(:body) ? body.body.map{|r| JSON.parse(r)} : nil
+        rescue
+          response_body = body.inspect
+        end
+        
         {response:
           {
             transaction_id:   transaction_id,
