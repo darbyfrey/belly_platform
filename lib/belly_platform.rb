@@ -9,6 +9,8 @@ require 'grape'
 require "belly_platform/version"
 require "belly_platform/logger"
 require "belly_platform/identity"
+require "belly_platform/string"
+require "belly_platform/boolean"
 require "belly_platform/middleware/logger"
 require "belly_platform/grape_api"
 require "generators/scaffold"

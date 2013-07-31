@@ -20,7 +20,7 @@ module BellyPlatform
 
       def coerce(type, value)
         case type
-        when 'int'
+        when 'integer'
           value.to_i
         when 'array_of_strings'
           value.split(',')
