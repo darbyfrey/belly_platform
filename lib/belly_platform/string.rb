@@ -24,12 +24,22 @@ module BellyPlatform
 
       def coerce(type, value)
         case type
-        when 'integer'
+        when 'integer', 'int'
           value.to_i
+        when 'boolean'
+          !!value
+        when 'double'
+          value.to_f
+        when 'array_of_integers', 'array_of_ints'
+          value.split(',').map{|v| v.to_i}
         when 'array_of_strings'
           value.split(',')
         when 'timestamp'
-          Time.at(value.to_i)
+          if !!(value =~ /^(\d{10})$/)
+            Time.at(value.to_i)
+          elsif !!(value =~ /^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}($|(\.\d+)$))/)
+            Time.parse(value)
+          end
         else
           value
         end
