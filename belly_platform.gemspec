@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'rake'
   gem.add_dependency 'logging'
   gem.add_dependency 'dotenv'
-  gem.add_dependency 'octokit'
+  gem.add_dependency 'octokit', '2.0.0.rc2'
   gem.add_dependency 'grape'
   gem.add_dependency 'grape-swagger'
 
