@@ -11,7 +11,6 @@ module BellyPlatform
 
         # log the request
         BellyPlatform::Logger.logger.debug format_request(env)
-        # BellyPlatform::Log.write(:info, transaction_id, env)
 
         # process the request
         status, headers, body = @app.call(env)
