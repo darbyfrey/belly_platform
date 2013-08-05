@@ -7,7 +7,8 @@ require 'grape'
 
 # require internal files
 require "belly_platform/version"
-require "belly_platform/logger"
+require "belly_platform/logger/logger"
+require "belly_platform/logger/log_transaction"
 require "belly_platform/identity"
 require "belly_platform/string"
 require "belly_platform/boolean"

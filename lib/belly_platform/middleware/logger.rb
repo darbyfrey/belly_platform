@@ -10,24 +10,26 @@ module BellyPlatform
         transaction_id=SecureRandom.uuid
 
         # log the request
-        BellyPlatform::Logger.logger.debug format_request(env, transaction_id)
+        BellyPlatform::Logger.logger.debug format_request(env)
 
         # process the request
         status, headers, body = @app.call(env)
 
         # log the response
-        BellyPlatform::Logger.logger.debug format_response(transaction_id, status, headers, body)
+        BellyPlatform::Logger.logger.debug format_response(status, headers, body)
 
         # return the results
         [status, headers, body]
+      ensure
+        # Clear the transaction id after each request
+        BellyPlatform::LogTransaction.clear
       end
 
     private
-      def format_request(env, transaction_id)
+      def format_request(env)
         request = Rack::Request.new(env)
 
         request_data = {
-          transaction_id:   transaction_id,
           method:           env['REQUEST_METHOD'],
           path:             env['PATH_INFO'],
           query:            env['QUERY_STRING'],
@@ -40,17 +42,16 @@ module BellyPlatform
         {request: request_data}
       end
 
-      def format_response(transaction_id, status, headers, body)
+      def format_response(status, headers, body)
         response_body = nil
         begin
-          response_body = body.respond_to?(:body) ? body.body.map{|r| JSON.parse(r)} : nil
+          response_body = body.respond_to?(:body) ? body.body.map{|r| r} : nil
         rescue
           response_body = body.inspect
         end
         
         {response:
           {
-            transaction_id:   transaction_id,
             status:   status,
             headers:  headers,
             response: response_body
