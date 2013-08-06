@@ -1,5 +1,4 @@
 namespace :git do
-  # I'm against keeping this oauth token here, but it's already in this code anyway
   client = Octokit::Client.new(:oauth_token => ENV['GITHUB_OAUTH_TOKEN'])
   logger = Logger.new(STDOUT)
 
