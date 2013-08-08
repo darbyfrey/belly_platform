@@ -2,6 +2,8 @@ module BellyPlatform
   class String
     class << self
       def validate(type, value)
+        return false if value.nil?
+        
         case type
         when 'integer', 'int'
           !!(value =~ /^-?\d*(,\d*)*$/)
@@ -33,8 +35,10 @@ module BellyPlatform
         when 'double'
           value.to_f
         when 'array_of_integers', 'array_of_ints'
+          value = value.split(',') unless value.is_a?(Array)
           value.split(',').map{|v| v.to_i}
         when 'array_of_strings'
+          value = value.split(',') unless value.is_a?(Array)
           value.split(',')
         when 'timestamp'
           if !!(value =~ /^(\d{10})$/)
