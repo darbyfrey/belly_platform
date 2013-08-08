@@ -46,6 +46,10 @@ describe BellyPlatform::String do
         BellyPlatform::String.validate('array_of_integers', '1,2,3').should be_true
       end
 
+      it "returns true for an actual array" do
+        BellyPlatform::String.validate('array_of_integers', ['1','2','3']).should be_true
+      end
+
       it "returns false for an invalid array_of_integers" do
         BellyPlatform::String.validate('array_of_integers', '1,2,3,watermelon').should be_false
       end
@@ -54,6 +58,10 @@ describe BellyPlatform::String do
     context "#array_of_strings" do
       it "returns true for a valid array_of_strings" do
         BellyPlatform::String.validate('array_of_strings', '1234,hello,there').should be_true
+      end
+
+      it "returns true for an actual array" do
+        BellyPlatform::String.validate('array_of_strings', ['1234','hello','there']).should be_true
       end
 
       it "returns false for an invalid array_of_strings" do

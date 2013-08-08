@@ -12,10 +12,10 @@ module BellyPlatform
         when 'double'
           !!(value =~ /^-?\d*.\d*$/)
         when 'array_of_integers', 'array_of_ints'
-          value = value.split(',')
+          value = value.split(',') unless value.is_a?(Array)
           value.is_a?(Array) && value.all?{|i| !!(i =~ /^\d*(,\d*)*$/)}
         when 'array_of_strings'
-          value = value.split(',')
+          value = value.split(',') unless value.is_a?(Array)
           value.is_a?(Array) && value.all?{|i| !!(i =~ /^[.\d\w-][.\d\w-]*(,[.\d\w-][.\d\w-]*)*$/)}
         when 'snake_case'
           !!(value =~ /^[a-zA-Z0-9_-]+$/)
