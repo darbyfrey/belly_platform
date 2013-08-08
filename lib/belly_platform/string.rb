@@ -19,6 +19,8 @@ module BellyPlatform
           value.is_a?(Array) && value.all?{|i| !!(i =~ /^[.\d\w-][.\d\w-]*(,[.\d\w-][.\d\w-]*)*$/)}
         when 'snake_case'
           !!(value =~ /^[a-zA-Z0-9_-]+$/)
+        when 'string'
+          !value.nil?
         end 
       end
 
