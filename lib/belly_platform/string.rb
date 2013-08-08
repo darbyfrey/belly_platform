@@ -6,7 +6,7 @@ module BellyPlatform
 
         case type
         when 'integer', 'int'
-          !!(value =~ /^-?\d*(,\d*)*$/)
+          !!(value.to_s =~ /^-?\d*(,\d*)*$/)
         when 'boolean'
           BellyPlatform::Boolean.is_boolean?(value)
         when 'timestamp'
