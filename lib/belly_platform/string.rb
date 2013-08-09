@@ -2,6 +2,7 @@ module BellyPlatform
   class String
     class << self
       def validate(type, value)
+        # return true if value not present
         return true unless value.present?
 
         case type
@@ -27,6 +28,9 @@ module BellyPlatform
       end
 
       def coerce(type, value)
+        # if value is nil or "", just return value
+        return value unless value.present?
+
         case type
         when 'integer', 'int'
           value.to_i
