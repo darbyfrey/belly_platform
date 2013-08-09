@@ -4,12 +4,19 @@ require 'belly_platform/boolean'
 
 describe BellyPlatform::String do
   context "#check_type" do
+    context "nil value" do
+      it "returns false when a value is nil" do
+        BellyPlatform::String.validate('integer', nil).should be_false
+      end
+    end
+
     context "#integer" do
       it "returns true for a valid integer string" do
         BellyPlatform::String.validate('integer', '123').should be_true
         BellyPlatform::String.validate('integer', '-123').should be_true
         BellyPlatform::String.validate('integer', '1,234').should be_true
         BellyPlatform::String.validate('integer', '-1,234').should be_true
+        BellyPlatform::String.validate('integer', 123).should be_true
       end
 
       it "returns false for an invalid integer" do
@@ -66,6 +73,65 @@ describe BellyPlatform::String do
 
       it "returns false for an invalid array_of_strings" do
         BellyPlatform::String.validate('array_of_strings', 'a-complex string with invalid characters like & and +').should be_false
+      end
+    end
+
+    context "#string" do
+      it "returns true for any non nil string value" do
+        BellyPlatform::String.validate('string', 'foo').should be_true
+      end
+
+      it "returns false for any nil string value" do
+        BellyPlatform::String.validate('string', '').should be_false
+      end
+    end
+  end
+
+  context "#coerce" do
+    context "#integer" do
+      it "coerces a string correctly" do
+        BellyPlatform::String.coerce('integer', '123').should == 123
+        BellyPlatform::String.coerce('integer', 123).should == 123        
+      end
+    end
+
+    context "#boolean" do
+      it "coerces a boolean correctly" do
+        BellyPlatform::String.coerce('boolean', 't').should == true
+        BellyPlatform::String.coerce('boolean', 'true').should == true
+        BellyPlatform::String.coerce('boolean', true).should == true 
+        BellyPlatform::String.coerce('boolean', 'f').should == false
+        BellyPlatform::String.coerce('boolean', 'false').should == false
+        BellyPlatform::String.coerce('boolean', false).should == false        
+      end
+    end
+
+    context "#double" do
+      it "coerces a double correctly" do
+        BellyPlatform::String.coerce('double', '123.45').should == 123.45
+        BellyPlatform::String.coerce('double', 123.45).should == 123.45     
+      end
+    end
+
+    context "#array_of_integers" do
+      it "coerces a double correctly" do
+        BellyPlatform::String.coerce('array_of_integers', '1,2,3').should == [1,2,3]
+        BellyPlatform::String.coerce('array_of_integers', ['1','2','3']).should == [1,2,3]
+      end
+    end
+
+    context "#array_of_strings" do
+      it "coerces a double correctly" do
+        BellyPlatform::String.coerce('array_of_strings', 'foo,bar,baz').should == ['foo','bar','baz']
+        BellyPlatform::String.coerce('array_of_strings', ['foo','bar','baz']).should == ['foo','bar','baz']
+      end
+    end
+
+    context "#timestamp" do
+      it "coerces a timestamp correctly" do
+        BellyPlatform::String.coerce('timestamp', '1376064517').should == "2013-08-09 11:08:37.000000000"
+        BellyPlatform::String.coerce('timestamp', 1376064517).should == "2013-08-09 11:08:37.000000000"
+        BellyPlatform::String.coerce('timestamp', '2013-08-09 11:08:37').should == "2013-08-09 11:08:37.000000000"
       end
     end
   end
