@@ -88,6 +88,13 @@ describe BellyPlatform::String do
   end
 
   context "#coerce" do
+    context "empty value" do
+      it "returns value if value empty" do
+        BellyPlatform::String.coerce('integer', '').should == ''
+        BellyPlatform::String.coerce('integer', nil).should == nil         
+      end
+    end
+
     context "#integer" do
       it "coerces a string correctly" do
         BellyPlatform::String.coerce('integer', '123').should == 123
