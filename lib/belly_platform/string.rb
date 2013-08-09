@@ -2,7 +2,7 @@ module BellyPlatform
   class String
     class << self
       def validate(type, value)
-        return false if value.nil?
+        return false unless value.present?
 
         case type
         when 'integer', 'int'
@@ -31,7 +31,7 @@ module BellyPlatform
         when 'integer', 'int'
           value.to_i
         when 'boolean'
-          !!value
+          BellyPlatform::Boolean.convert(value)
         when 'double'
           value.to_f
         when 'array_of_integers', 'array_of_ints'
@@ -41,10 +41,10 @@ module BellyPlatform
           value = value.split(',') unless value.is_a?(Array)
           value
         when 'timestamp'
-          if !!(value =~ /^(\d{10})$/)
-            Time.at(value.to_i)
+          if !!(value.to_s =~ /^(\d{10})$/)
+            Time.at(value.to_i).to_s(:hadoop)
           elsif !!(value =~ /^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}($|(\.\d+)$))/)
-            Time.parse(value)
+            Time.parse(value).to_s(:hadoop)
           end
         else
           value
