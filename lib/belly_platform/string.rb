@@ -2,7 +2,7 @@ module BellyPlatform
   class String
     class << self
       def validate(type, value)
-        return false unless value.present?
+        return true unless value.present?
 
         case type
         when 'integer', 'int'

@@ -5,8 +5,8 @@ require 'belly_platform/boolean'
 describe BellyPlatform::String do
   context "#check_type" do
     context "nil value" do
-      it "returns false when a value is nil" do
-        BellyPlatform::String.validate('integer', nil).should be_false
+      it "returns true when a value is nil" do
+        BellyPlatform::String.validate('integer', nil).should be_true
       end
     end
 
@@ -81,8 +81,8 @@ describe BellyPlatform::String do
         BellyPlatform::String.validate('string', 'foo').should be_true
       end
 
-      it "returns false for any nil string value" do
-        BellyPlatform::String.validate('string', '').should be_false
+      it "returns true for any nil string value" do
+        BellyPlatform::String.validate('string', '').should be_true
       end
     end
   end
