@@ -25,6 +25,20 @@ describe BellyPlatform::String do
       end
     end
 
+    context "#double" do
+      it "returns true for a valid double" do
+        BellyPlatform::String.validate('double', '123.4').should be_true
+        BellyPlatform::String.validate('double', '123.45').should be_true
+        BellyPlatform::String.validate('double', 123.4).should be_true
+        BellyPlatform::String.validate('double', 123.45).should be_true
+      end
+
+      it "returns false for an invalid double" do
+        BellyPlatform::String.validate('double', 'true').should be_false
+        BellyPlatform::String.validate('double', [1,2,3]).should be_false
+      end
+    end
+
     context "#boolean" do
       it "returns true for a valid boolean" do
         BellyPlatform::String.validate('boolean', 'true').should be_true
