@@ -13,7 +13,7 @@ module BellyPlatform
         when 'timestamp'
           !!(value =~ /^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}($|(\.\d+)$))|^(\d{10})$/)
         when 'double'
-          !!(value =~ /^-?\d*.\d*$/)
+          !!(value.to_s =~ /^-?\d*.\d*$/)
         when 'array_of_integers', 'array_of_ints'
           value = value.split(',') unless value.is_a?(Array)
           value.is_a?(Array) && value.all?{|i| !!(i =~ /^\d*(,\d*)*$/)}
