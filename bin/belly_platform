@@ -9,7 +9,7 @@ if actions.include?(ARGV[0])
     if ARGV[1].nil?
       STDOUT.write "Missing App Name, Exiting\n"
     else
-      BellyPlatform::Generators::Scaffold.new(ARGV[1])
+      BellyPlatform::Generators::Scaffold.new(ARGV[1], ARGV[2])
     end
   end
 else
