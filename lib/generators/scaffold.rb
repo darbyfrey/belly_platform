@@ -3,7 +3,7 @@ module BellyPlatform
     class Scaffold
       def initialize(app_name, app_path=nil)
         @app_name = app_name
-        @app_path = path.nil? ? app_name : app_path
+        @app_path = app_path.nil? ? app_name : app_path
         @template_path = File.expand_path(File.join(File.dirname(__FILE__), 'templates/scaffold'))
         @files = file_list
 
