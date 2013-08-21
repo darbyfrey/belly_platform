@@ -22,6 +22,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'octokit', '~> 1.25'
   gem.add_dependency 'grape'
   gem.add_dependency 'grape-swagger'
+  gem.add_dependency 'unicorn'
 
   gem.add_development_dependency "rspec"
   gem.add_development_dependency "pry"
