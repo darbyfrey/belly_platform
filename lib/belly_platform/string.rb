@@ -10,6 +10,8 @@ module BellyPlatform
           !!(value.to_s =~ /^-?\d*(,\d*)*$/)
         when 'boolean'
           BellyPlatform::Boolean.is_boolean?(value)
+        when 'date'
+          !!(value =~ /\d{4}-\d{2}-\d{2}/)
         when 'timestamp'
           !!(value =~ /^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}($|(\.\d+)$))|^(\d{10})$/)
         when 'double'
@@ -22,6 +24,8 @@ module BellyPlatform
           value.is_a?(Array) && value.all?{|i| !!(i =~ /^[.\d\w-][.\d\w-]*(,[.\d\w-][.\d\w-]*)*$/)}
         when 'snake_case'
           !!(value =~ /^[a-zA-Z0-9_-]+$/)
+        when 'geopoint'
+          !!(value =~ /^\[-?\d*(.\d*)\, ?-?\d*(.\d*)\]$/)
         when 'string'
           !value.nil?
         end 
