@@ -21,7 +21,10 @@ module BellyPlatform
           )
 
           @logger = Logging.logger["[#{name}]"]
-          @logger.add_appenders 'stdout',"log/#{ENV['RACK_ENV']}.log"
+          unless ENV['RACK_ENV'] == 'test'
+            @logger.add_appenders 'stdout'
+          end
+          @logger.add_appenders "log/#{ENV['RACK_ENV']}.log"
         end
 
         @logger
