@@ -26,4 +26,13 @@ end
 
 
 module BellyPlatform
+  class << self
+    def env
+      @_env ||= ActiveSupport::StringInquirer.new(ENV["RACK_ENV"] || "development")
+    end
+
+    def env=(environment)
+      @_env = ActiveSupport::StringInquirer.new(environment)
+    end
+  end
 end
