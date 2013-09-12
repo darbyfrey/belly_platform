@@ -16,15 +16,15 @@ module BellyPlatform
             :layout => Logging.layouts.json
           )
           Logging.appenders.file(
-            "log/#{ENV['RACK_ENV']}.log",
+            "log/#{BellyPlatform.env}.log",
             :layout => Logging.layouts.json
           )
 
           @logger = Logging.logger["[#{name}]"]
-          unless ENV['RACK_ENV'] == 'test'
+          unless BellyPlatform.env.test?
             @logger.add_appenders 'stdout'
           end
-          @logger.add_appenders "log/#{ENV['RACK_ENV']}.log"
+          @logger.add_appenders "log/#{BellyPlatform.env}.log"
         end
 
         @logger

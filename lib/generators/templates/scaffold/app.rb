@@ -1,14 +1,10 @@
-# load environment
-require 'dotenv'
-RACK_ENV = ENV['RACK_ENV'] || 'development'
-if RACK_ENV == 'test'
-  Dotenv.load(".env.test")
-else
-  Dotenv.load
-end
-
 # load bundler
-Bundler.require :default, RACK_ENV
+Bundler.setup(:default)
+require 'belly_platform'
+Bundler.require(:default, BellyPlatform.env.to_sym)
+
+# load environment
+Dotenv.load(BellyPlatform.env.test? ? ".env.test" : ".env")
 
 # autoload lib
 Dir['./lib/**/**/*.rb'].map {|file| require file }

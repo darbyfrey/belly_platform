@@ -11,7 +11,7 @@ namespace :db do
 
   desc "Create the database"
   task :create => :environment do
-    db = YAML.load(ERB.new(File.read('./config/mysql.yml')).result)[RACK_ENV]
+    db = YAML.load(ERB.new(File.read('./config/mysql.yml')).result)[BellyPlatform.env]
     admin = db.merge({'database'=> 'mysql'}) 
     ActiveRecord::Base.establish_connection(admin)
     ActiveRecord::Base.connection.create_database(db.fetch('database'))
@@ -19,7 +19,7 @@ namespace :db do
 
   desc "Delete the database"
   task :drop => :environment do
-    db = YAML.load(ERB.new(File.read('./config/mysql.yml')).result)[RACK_ENV]
+    db = YAML.load(ERB.new(File.read('./config/mysql.yml')).result)[BellyPlatform.env]
     admin = db.merge({'database'=> 'mysql'}) 
     ActiveRecord::Base.establish_connection(admin)
     ActiveRecord::Base.connection.drop_database(db.fetch('database'))
