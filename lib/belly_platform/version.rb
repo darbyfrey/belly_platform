@@ -1,5 +1,5 @@
 module BellyPlatform
-  VERSION = "0.0.13"
+  VERSION = "0.0.14"
   
   class Version
     class << self

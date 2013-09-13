@@ -1,4 +1,7 @@
 #!/usr/bin/env rake
+require 'dotenv'
+Dotenv.load
+
 require './app'
 require 'json'
 
