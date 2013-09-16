@@ -10,5 +10,7 @@ require './app'
 # use Honeybadger::Rack
 # use BellyPlatform::Middleware::Logger
 
+use BellyPlatform::Middleware::AppMonitor
+
 # run SomeService # <-- boot your service here --
   

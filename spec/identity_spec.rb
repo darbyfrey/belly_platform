@@ -41,4 +41,10 @@ describe BellyPlatform::Identity do
       BellyPlatform::Identity.pid.should == 112233
     end
   end
+
+  context "#platform_revision" do
+    it "returns the current version of the platform gem" do
+      BellyPlatform::Identity.platform_revision.should == BellyPlatform::VERSION
+    end
+  end
 end

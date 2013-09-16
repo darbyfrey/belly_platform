@@ -1,5 +1,16 @@
 module BellyPlatform
   class Identity
+    def self.health
+      {
+        name: name,
+        hostname: hostname,
+        revision: revision,
+        pid: pid,
+        parent_pid: parent_pid,
+        platform_revision: platform_revision
+      }
+    end
+
     def self.name
       ENV['SERVICE_NAME'] || 'api-service'
     end
@@ -14,6 +25,14 @@ module BellyPlatform
 
     def self.pid
       @pid ||= Process.pid
+    end
+
+    def self.parent_pid
+      @ppid ||= Process.ppid
+    end
+
+    def self.platform_revision
+      BellyPlatform::VERSION
     end
   end
 end
