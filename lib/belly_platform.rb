@@ -14,6 +14,7 @@ require "belly_platform/string"
 require "belly_platform/boolean"
 require "belly_platform/datetime_formats"
 require "belly_platform/middleware/logger"
+require "belly_platform/middleware/app_monitor"
 require "belly_platform/grape_api"
 require "generators/scaffold"
 
