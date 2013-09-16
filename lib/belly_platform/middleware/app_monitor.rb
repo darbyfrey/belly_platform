@@ -6,7 +6,7 @@ module BellyPlatform
       end
 
       def call(env)
-        if env['REQUEST_URI'] == '/health'
+        if env['REQUEST_PATH'] == '/health'
           [200, {'Content-type' => 'application/json'}, [BellyPlatform::Identity.health.to_json]]
         else
           @app.call(env)
