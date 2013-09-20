@@ -28,6 +28,12 @@ module BellyPlatform
     private
       def format_request(env)
         request = Rack::Request.new(env)
+        params =  request.params
+        begin
+          params = JSON.parse(request.body.read) if env['CONTENT_TYPE'] == 'application/json'
+        rescue
+          # do nothing, params is already set
+        end
 
         request_data = {
           method:           env['REQUEST_METHOD'],
@@ -36,7 +42,7 @@ module BellyPlatform
           host:             BellyPlatform::Identity.hostname,
           pid:              BellyPlatform::Identity.pid,
           revision:         BellyPlatform::Identity.revision,
-          params:           request.params
+          params:           params
         }
         request_data[:user_id] = current_user.try(:id) if defined?(current_user)
         {request: request_data}
