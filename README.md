@@ -17,6 +17,85 @@ And then execute:
 
     $ bundle
 
+### First time notes
+
+If you havent installed the gem before, and you want to use the built in generator for your first project.  You can use `gem` to install  from our github repository by executing:
+
+    $ git clone git@github.com:bellycard/belly_platform.git && cd belly_platform
+    $ gem build belly_platform.gemspec
+    $ sudo gem install belly_platform-0.0.version_number.gem
+
+## Getting started, an example
+
+This gem comes with a useful generator to stub out your projects folder structure.
+
+    $ belly_platform new your_project_name
+
+There are no default APIs, so you will have to add one.  Create a new file in the /app/apis folder, name this file `hello.rb` and define the following class within it. This will be our first endpoint.
+
+```ruby
+// /app/apis/hello.rb
+class HelloApi < Grape::API
+  desc "a hello world API endpoint"
+  get do
+    {cheery_message: "hello wonderful world"}
+  end
+end
+```
+
+Every API should have a coresponding spec. Create a file named `hello_api_spec.rb` under /spec/apis (you will need to create the 'apis' folder) and define the following class within it.
+
+```ruby
+// /spec/apis/hello_api_spec.rb
+require 'spec_helper'
+
+describe HelloApi do
+  include Rack::Test::Methods
+
+  def app
+    HelloApi
+  end
+
+  describe 'Get /hello' do
+
+    before do
+      get '/hello'
+    end
+
+    it 'returns a cheery message' do
+      expect(last_response.body).to eq({cheery_message: "hello wonderful world"}.to_json)
+    end
+
+  end
+
+end
+```
+
+Now open `app.rb` and define your service by adding the following class to the end of the file
+
+```ruby
+// add this to the end of /app.rb
+class HelloWorldService < Grape::API
+  format :json
+
+  mount HelloApi => 'hello'
+end
+```
+
+The last step is to update your `config.ru` file to identify which service to boot.  Add the following line to the end of `config.ru`
+
+    run HelloWorldService
+
+To check your tests pass, execute:
+
+    $ rspec
+
+To run your service, execute:
+
+    $ rackup
+
+When you visit http://localhost:9292/hello you should now be presented with your first JSON response.
+
 ## Usage/Features
 
 ### Identity
