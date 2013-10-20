@@ -61,4 +61,20 @@ namespace :db do
       puts "Successfully created migration #{migration_filename}"
     end
   end
+  
+  namespace :schema do
+    desc "Create a db/schema.rb file that can be portably used against any DB supported by AR"
+    task :dump => :environment do
+      require 'active_record/schema_dumper'
+      File.open(ENV['SCHEMA'] || "db/schema.rb", "w") do |file|
+        ActiveRecord::SchemaDumper.dump(ActiveRecord::Base.connection, file)
+      end
+    end
+ 
+    desc "Load a schema.rb file into the database"
+    task :load => :environment do
+      file = ENV['SCHEMA'] || "db/schema.rb"
+      load(file)
+    end
+  end
 end
