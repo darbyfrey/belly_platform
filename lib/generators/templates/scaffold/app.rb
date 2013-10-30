@@ -2,6 +2,8 @@
 Bundler.setup(:default)
 require 'belly_platform'
 Bundler.require(:default, BellyPlatform.env.to_sym)
+require 'will_paginate'
+require 'will_paginate/active_record' 
 
 # load environment
 Dotenv.load(BellyPlatform.env.test? ? ".env.test" : ".env")
